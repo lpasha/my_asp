@@ -6,7 +6,7 @@
   <meta name="linux" content="Linux build site" />
   <link rel="stylesheet" type="text/css" href="style/style.css" title="style" />
    <script type="text/javascript" src="js/jquery.min.js"> </script>  
-   <script type="text/javascript" src="js/gencd.js"> </script>
+   <script type="text/javascript" src="js/reports.js"> </script>
 </head>
 
 <body>
@@ -47,9 +47,34 @@
         <!-- insert the page content here -->
       <h1>Generate User Login Reports </h1>
       <p>
-       <br>
+      Welcome to login report page!!
       <br>
+     Please select the options from drop down and click on submit to generate the report.<br>
+    
       </p>
+      
+      <form>
+          <div class="form_settings">
+		<p><span>Select Report</span><select id="reoprtdropdown">
+		<option value="1">Get Last 5 Logins from the server</option>
+		<option value="2">Generate Weekly Report</option>
+		<option value="3">Display System Load</option>
+		<option value="4">Display performance Data</option>
+		</select>
+		</p>
+  
+  <p style="padding-top: 15px"><span>&nbsp;</span><input id="report" class="submit" type="button" value="Submit" /></p>
+          </div>
+        </form>
+ 
+         <br><br>
+         
+        <p class='showprogress' id='uresult'>
+        </p>
+        
+        <div id="display">
+        
+        </div>
      
        <!--content ends here -->
        </div>
