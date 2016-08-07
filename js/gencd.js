@@ -31,20 +31,36 @@ $(document).ready(function() {
 		err.text('Invalid netmask. valid entries are 8-30');
 		return false;
 	}
-	
+
+	 $('#result').html( "<img src='style/loader.gif'>");
     $.ajax({
-			url: "js/process.php",
-			type: "POST",
-			data: {'hostname':hostname,'ip':ip,'mask':mask},
-			success:function(data){
-				$('#result').html(data);
-			},
-			  error: function(xhr,desc,err){
-				  console.log("failed with error : " + xhr + "\n"+err);
-			  }
-		}) //Ajax
+		
+    	// AJAX call to the build server.
+    	// url: parameter will change if the build server ip is changed 
+    	// current build server ip : 192.168.1.156
+    	url: "http://192.168.1.156/process.php",
+		type: "POST",
+		data: {'hostname':hostname,'ip':ip,'mask':mask},
+		success:function(json){
+			$('#isobutton').attr('disabled','disabled');
+		  $.each(JSON.parse(json),function(i,item){
+			if(item == "successful"){
+				imgurl = "http://192.168.1.156/generated/iso/"+hostname+".iso";
+				$('#result').html("<span style='color:green'> Bootable iso generated, click the Download link to save the iso image</span><br><a href="+imgurl+"> Download</a>");
+			}else{
+				console.log(item);
+				$('#result').html("<span style='color:red'>Error while generating iso:</span> <br>"+item);
+			}
+		  })
+		},
+		error: function(xhr,desc,err){
+		  console.log("failed with error : " + xhr + "\n"+err);
+		  $('#result').html("<span style='color:red'> Network error: "+xhr+"\n"+ err+ "</span>");
+		}
+		
+	}) //Ajax
 		
 		
-	}); // click 
+ }); // click 
 
 });
